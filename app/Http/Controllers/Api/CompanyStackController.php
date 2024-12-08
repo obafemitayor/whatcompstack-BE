@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 
 class CompanyStackController extends Controller
 {
-    private function get_companies_by_search_term($term, Company $company)
+    private function getCompaniesBySearchTerm($term, Company $company)
     {
         $term = strtolower($term);
         $companies = $company->FetchAllClientDetails()
@@ -35,10 +35,10 @@ class CompanyStackController extends Controller
 
     public function index(Request $req, Company $company)
     {
-        $search_term = $req->query('term');
-        if ($search_term) {
-            $paginated_companies = $this->get_companies_by_search_term($search_term, $company)->paginate(21);
-            return CompanyResource::collection($paginated_companies);
+        $searchTerm = $req->query('term');
+        if ($searchTerm) {
+            $paginatedCompanies = $this->getCompaniesBySearchTerm($searchTerm, $company)->paginate(21);
+            return CompanyResource::collection($paginatedCompanies);
         }
 
         $companies = $company->FetchAllClientDetails();
